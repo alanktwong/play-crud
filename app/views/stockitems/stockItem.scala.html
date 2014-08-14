@@ -1,4 +1,4 @@
-@(stockItem: StockItemData)(implicit flash: Flash, lang: Lang)
+@(stockItem: StockItemData)(implicit context: ViewContext)
 
 @products.productsLayout(Messages("stockitem.details")) {
 	<h4>

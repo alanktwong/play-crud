@@ -1,4 +1,4 @@
-@(stockItems: Seq[StockItemData])(implicit flash: Flash, lang: Lang)
+@(stockItems: Seq[StockItemData])(implicit context: ViewContext)
 
 @products.productsLayout(Messages("stockitem.landing.page")) {
 	<div class="row">

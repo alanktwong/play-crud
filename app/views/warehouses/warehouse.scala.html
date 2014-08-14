@@ -1,4 +1,4 @@
-@(warehouse: WarehouseData)(implicit flash: Flash, lang: Lang)
+@(warehouse: WarehouseData)(implicit context: ViewContext)
 
 @products.productsLayout(Messages("warehouse.details", warehouse.name)) {
 	<h4>

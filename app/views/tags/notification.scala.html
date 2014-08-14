@@ -1,9 +1,11 @@
-@(flash: Flash, lang: Lang)
+@(context: ViewContext)
 
-@if(flash.get("success").isDefined){
-	<div class="alert alert-success">@flash.get("success")</div>
-}
-
-@if(flash.get("error").isDefined){
-	<div class="alert alert-error">@flash.get("error")</div>
+@defining(context.flash) { flash =>
+	@if(flash.get("success").isDefined){
+		<div class="alert alert-success">@flash.get("success")</div>
+	}
+	
+	@if(flash.get("error").isDefined){
+		<div class="alert alert-error">@flash.get("error")</div>
+	}
 }

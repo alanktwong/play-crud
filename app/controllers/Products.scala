@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.mvc.{Request, Result, Flash, Action}
+import play.api.mvc._
 
 import util.{Try, Success, Failure}
 import models.{ProductData, Product}
@@ -30,7 +30,7 @@ class Products extends BaseController {
 	}
 	
 
-	def list = Action { implicit request =>
+	def list = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				val products = Product.findAll
@@ -49,7 +49,7 @@ class Products extends BaseController {
 	 * 
 	 * @see http://workwithplay.com/blog/2013/05/15/json-rest-web-services/
 	 */
-	def show(ean: Long) =  Action { implicit request =>
+	def show(ean: Long) =  ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				Product.findByEan(ean).map { product =>
@@ -65,19 +65,17 @@ class Products extends BaseController {
 	}
 
 
-	def delete(ean: Long) = Action { implicit request => 
+	def delete(ean: Long) = ViewContextAction { implicit context => 
 		NotImplemented
 	}
 
-	
-	
-	def edit(ean: Long) = Action { implicit request =>
+	def edit(ean: Long) = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				Product.findByEan(ean) match {
 					case Some(prod) =>
 						logger.info("found product: ean = " + ean)
-						val form = getProductForm(request, Some(prod))
+						val form = getProductForm(context, Some(prod))
 						Ok(views.html.products.editProduct(form, true)).withSession(
 							session + ("ean" -> ean.toString))
 					case None => Redirect(routes.Products.list)
@@ -90,10 +88,10 @@ class Products extends BaseController {
 	}
 
 	
-	def newProduct = Action { implicit request =>
+	def newProduct = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
-				val form = getProductForm(request, None)
+				val form = getProductForm(context, None)
 				Ok(views.html.products.editProduct(form, false))
 			}
 			case Accepts.Json() => {
@@ -103,7 +101,7 @@ class Products extends BaseController {
 	}
 
 	
-	private def getProductForm[T](request: Request[T], prodOpt: Option[ProductData]): Form[ProductData] = {
+	private def getProductForm(request: Request[AnyContent], prodOpt: Option[ProductData]): Form[ProductData] = {
 		val flash = request.flash
 		val aForm = prodOpt match {
 			case Some(p) => productForm(true).fill(p)
@@ -115,13 +113,13 @@ class Products extends BaseController {
 		}
 	}
 	
-	private def isEdit[T](request: Request[T]): Boolean = {
+	private def isEdit(request: Request[AnyContent]): Boolean = {
 		request.session.get("ean") match {
 			case Some(_) => true
 			case _ => false
 		}
 	}
-	private def getEanFromSession[T](request: Request[T]): Option[Long] = {
+	private def getEanFromSession(request: Request[AnyContent]): Option[Long] = {
 		request.session.get("ean") match {
 			case Some(s) => {
 				try {
@@ -134,13 +132,13 @@ class Products extends BaseController {
 		}
 	}
 
-	def save = Action { implicit request => 
+	def save = ViewContextAction { implicit context => 
 		render {
 			case Accepts.Html() => {
-				saveForm(request)
+				saveForm(context)
 			}
 			case Accepts.Json() => {
-				request.body.asJson.map { jsValue =>
+				context.body.asJson.map { jsValue =>
 					Jsons.toProduct(jsValue).fold(
 						valid = { productToSave =>
 							Product.save(productToSave) match {
@@ -163,7 +161,7 @@ class Products extends BaseController {
 	
 	
 	
-	private def saveForm[T](implicit request: Request[T]): Result = {
+	private def saveForm(implicit request: Request[AnyContent]): Result = {
 		val isEditing = isEdit(request)
 		val enteredProductForm = productForm(isEditing).bindFromRequest()
 

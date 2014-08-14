@@ -31,7 +31,7 @@ class StockItems extends BaseController {
 	}
 	
 
-	def list = Action { implicit request =>
+	def list = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				val stockItems = StockItem.findAll
@@ -44,7 +44,7 @@ class StockItems extends BaseController {
 		}
 	}
 	
-	def show(ean: Long, code: String) =  Action { implicit request =>
+	def show(ean: Long, code: String) =  ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				StockItem.findByEanAndWarehouseCode(ean, code).map { stockItem =>
@@ -59,13 +59,13 @@ class StockItems extends BaseController {
 		}
 	}
 	
-	def save =  Action { implicit request =>
+	def save =  ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented
 			}
 			case Accepts.Json() => {
-				request.body.asJson.map { jsValue =>
+				context.body.asJson.map { jsValue =>
 					Jsons.toWarehouse(jsValue).fold(
 						valid = { warehouseToSave =>
 							Warehouse.save(warehouseToSave) match {
@@ -86,7 +86,7 @@ class StockItems extends BaseController {
 		}
 	}
 	
-	def edit(ean: Long, code: String) =  Action { implicit request =>
+	def edit(ean: Long, code: String) = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented
@@ -97,7 +97,7 @@ class StockItems extends BaseController {
 		}
 	}
 	
-	def delete(ean: Long, code: String) =  Action { implicit request =>
+	def delete(ean: Long, code: String) = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented
@@ -108,7 +108,7 @@ class StockItems extends BaseController {
 		}
 	}
 	
-	def newStockItem =  Action { implicit request =>
+	def newStockItem = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented

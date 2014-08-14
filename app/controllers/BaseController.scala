@@ -3,20 +3,29 @@ package controllers
 import play.api.mvc._
 import play.api.i18n.Lang
 
-trait BaseController extends ViewContextSupplier
+trait BaseController extends ControllerActions
+
+case class ViewContext(request: Request[AnyContent], lang: Lang, maybeUser: Option[models.User]) extends WrappedRequest(request)
 
 trait ControllerActions extends Controller with misc.Logging {
+
 	type ResultOrCredentials = Option[Either[Result, (String,String)]]
 	
-	def AuthenticatedAction(f: Request[AnyContent] => Result): Action[AnyContent] = {
+	def ViewContextAction(f: ViewContext => Result): Action[AnyContent] = {
 		Action { implicit request =>
-			maybeCredentials(request) map { resultOrCredentials =>
+			f(ViewContext(request, lang, getUser(request)))
+		}
+	}
+	
+	def AuthenticatedAction(f: ViewContext => Result): Action[AnyContent] = {
+		ViewContextAction { implicit context =>
+			maybeCredentials(context) map { resultOrCredentials =>
 				resultOrCredentials match {
 					case Left(errorResult) => errorResult
 					case Right(credentials) =>
 						val (username, password) = credentials
 						if (authenticate(username, password)) {
-							f(request)
+							f(context)
 						} else {
 							Unauthorized
 						}
@@ -30,6 +39,9 @@ trait ControllerActions extends Controller with misc.Logging {
 		}
 	}
 	
+	def getUser(request: Request[AnyContent]): Option[models.User] = {
+		None
+	}
 	def authenticate[A](username: String, password: String)(implicit request: Request[AnyContent]): Boolean = {
 		logger.info(s"Authenticating (${username},${password})")
 		true
@@ -62,7 +74,7 @@ trait ControllerActions extends Controller with misc.Logging {
 		}
 	}
 	
-	protected def readQueryString(request: Request[_]): ResultOrCredentials = {
+	protected def readQueryString(request: Request[AnyContent]): ResultOrCredentials = {
 		request.queryString.get("user").map{ username =>
 			request.queryString.get("password").map { password =>
 				Right( (username.head, password.head) )
@@ -73,15 +85,3 @@ trait ControllerActions extends Controller with misc.Logging {
 	}
 }
 
-case class ViewContext(request: Request[AnyContent], lang: Lang, maybeUser: Option[models.User]) extends WrappedRequest(request)
-
-trait ViewContextSupplier extends ControllerActions {
-	implicit def get(implicit request: Request[AnyContent]): ViewContext = {
-		logger.info("Setting view context")
-		ViewContext(request, lang, getUser)
-	}
-	
-	def getUser(implicit request: Request[AnyContent]): Option[models.User] = {
-		None
-	}
-}

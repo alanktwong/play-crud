@@ -1,11 +1,11 @@
-@()(implicit flash: Flash, lang: Lang)
+@()(implicit context: ViewContext)
 @import play.api.Play.current
 <footer class="text-center">
 	<div>
 		&copy; 2014- Alan Wong
 	</div>
 	<div>
-		lang = @lang.code,
+		lang = @context.lang.code,
 		user = @current.configuration.getString("environment.user"),
 		date = @(new java.util.Date().format("yyyy-MM-dd HH:mm"))
 	</div>

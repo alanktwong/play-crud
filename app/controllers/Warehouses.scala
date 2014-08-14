@@ -25,7 +25,7 @@ class Warehouses extends BaseController {
 		}
 	}
 	
-	def list = Action { implicit request =>
+	def list = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				val warehouses = Warehouse.findAll
@@ -38,7 +38,7 @@ class Warehouses extends BaseController {
 		}
 	}
 	
-	def show(code: String) =  Action { implicit request =>
+	def show(code: String) = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				Warehouse.findByCode(code).map { warehouse =>
@@ -53,13 +53,13 @@ class Warehouses extends BaseController {
 		}
 	}
 	
-	def save =  Action { implicit request =>
+	def save = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented
 			}
 			case Accepts.Json() => {
-				request.body.asJson.map { jsValue =>
+				context.body.asJson.map { jsValue =>
 					Jsons.toWarehouse(jsValue).fold(
 						valid = { warehouseToSave =>
 							Warehouse.save(warehouseToSave) match {
@@ -80,7 +80,7 @@ class Warehouses extends BaseController {
 		}
 	}
 	
-	def edit(code: String) =  Action { implicit request =>
+	def edit(code: String) = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented
@@ -91,7 +91,7 @@ class Warehouses extends BaseController {
 		}
 	}
 	
-	def delete(code: String) =  Action { implicit request =>
+	def delete(code: String) = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented
@@ -102,7 +102,7 @@ class Warehouses extends BaseController {
 		}
 	}
 	
-	def newWarehouse =  Action { implicit request =>
+	def newWarehouse = ViewContextAction { implicit context =>
 		render {
 			case Accepts.Html() => {
 				NotImplemented

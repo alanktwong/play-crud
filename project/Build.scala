@@ -25,7 +25,7 @@ object Resolvers {
 }
 
 object Versions {
-  lazy val scalaVer  = "2.10.4"
+  lazy val scalaVer  = "2.10.0"
   lazy val akkaVer   = "2.3.4"
   lazy val springVer = "3.2.2.RELEASE"
   lazy val playVer   = play.core.PlayVersion.current

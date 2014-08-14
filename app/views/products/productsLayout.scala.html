@@ -1,4 +1,4 @@
-@(title: String)(content: Html)(implicit lang: Lang, flash: Flash)
+@(title: String)(content: Html)(implicit context: ViewContext)
 <!DOCTYPE html>
 <html>
 	<head>
@@ -28,7 +28,7 @@
 					<h3><i class="glyphicon glyphicon-dashboard"></i> Product Dashboard</h3>
 					<hr>
 					
-					@tags.notification(flash, lang)
+					@tags.notification(context)
 					
 					<hr>
 					@content

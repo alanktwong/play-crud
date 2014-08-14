@@ -6,7 +6,7 @@
 *  - use a tag library for BS3 (e.g. see http://ics-software-engineering.github.io/play-example-form/)
 *  - Use client-side templating and possibly a single-page app like Angular with Angular directives for BS3.
 *@
-@(productForm: Form[ProductData], isEdit: Boolean)(implicit flash: Flash, lang: Lang)
+@(productForm: Form[ProductData], isEdit: Boolean)(implicit context: ViewContext)
 @import helper._
 @import helper.bootstrap._
 @import models.Product
