@@ -1,0 +1,33 @@
+@*
+* Play 2 integration with Bootstrap 3 is a mess. The helpers in helper.bootstrap._ will be
+* deprecated in the future. Here are potential solutions.
+*  - Use the barebones helpers, but use DOM manipulation to reshape the form into BS3.
+*  - Custom write your own field constructor
+*  - use a tag library for BS3 (e.g. see http://ics-software-engineering.github.io/play-example-form/)
+*  - Use client-side templating and possibly a single-page app like Angular with Angular directives for BS3.
+*@
+@(productForm: Form[ProductData], isEdit: Boolean)(implicit flash: Flash, lang: Lang)
+@import helper._
+@import helper.bootstrap._
+@import models.Product
+@import misc.Constants
+
+@products.productsLayout(Messages("products.form")) {
+	<h2>@Messages("products.form")</h2>
+
+	@helper.form(action = routes.Products.save()) {
+		<fieldset>
+			<legend>
+				@Messages("products.details", Messages("products.edit"))
+			</legend>
+			@if(isEdit) {
+				@helper.inputText(productForm(Constants.EAN), '_label -> Messages("product.ean"), 'hidden -> "hidden")
+			} else {
+				@helper.inputText(productForm(Constants.EAN))
+			}
+			@helper.inputText(productForm(Constants.NAME))
+			@helper.textarea(productForm(Constants.DESCRIPTION))
+		</fieldset>
+		<p><input type="submit" class="btn primary" value='@Messages("products.edit.submit")'></p>
+	}
+}

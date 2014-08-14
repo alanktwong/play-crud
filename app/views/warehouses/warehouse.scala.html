@@ -1,0 +1,27 @@
+@(warehouse: WarehouseData)(implicit flash: Flash, lang: Lang)
+
+@products.productsLayout(Messages("warehouse.details", warehouse.name)) {
+	<h4>
+		@Messages("warehouse.details", warehouse.name)
+	</h4>
+	<hr>
+	<dl id="productDetail-@warehouse.code" class="dl-horizontal">
+		<dt>@Messages("warehouse.code"):</dt>
+		<dd>@warehouse.code</dd>
+
+		<dt>@Messages("name"):</dt>
+		<dd>@warehouse.name</dd>
+
+	</dl>
+	<hr>
+	<div class="btn-group btn-group-justified">
+		<a href="@routes.Warehouses.edit(warehouse.code)" class="btn btn-info col-sm-3" disabled="disabled">
+			<i class="glyphicon glyphicon-save"></i><br> Update
+		</a>
+		<a href="@routes.Warehouses.delete(warehouse.code)" class="btn btn-info col-sm-3" disabled="disabled">
+			<i class="glyphicon glyphicon-trash"></i><br> Delete
+		</a>
+	</div>
+	
+
+}

@@ -1,0 +1,43 @@
+@(title: String)(content: Html)(implicit lang: Lang, flash: Flash)
+<!DOCTYPE html>
+<html>
+	<head>
+		@tags.header(title)
+	</head>
+	<body>
+		@dashboard.topnav()
+		<!-- Main -->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<!-- left -->
+					<h3><i class="glyphicon glyphicon-briefcase"></i> Toolbox</h3>
+					<hr>
+					
+					<ul class="nav nav-stacked">
+						<li><a href="@routes.Products.list()"><i class="glyphicon glyphicon-list"></i> Show Products</a></li>
+						<li><a href="@routes.Products.newProduct()"><i class="glyphicon glyphicon-plus"></i> Add New Product</a></li>
+						<li><a href="@routes.Warehouses.list()"><i class="glyphicon glyphicon-list"></i> Show Warehouses</a></li>
+						<li><a href="@routes.StockItems.list()"><i class="glyphicon glyphicon-list"></i> Show Stock Items</a></li>
+					</ul>
+					
+					<hr>
+				</div><!-- /span-3 -->
+				<div class="col-sm-6">
+					<!-- column 2 -->
+					<h3><i class="glyphicon glyphicon-dashboard"></i> Product Dashboard</h3>
+					<hr>
+					
+					@tags.notification(flash, lang)
+					
+					<hr>
+					@content
+				</div><!--/col-span-6-->
+				
+			</div><!--/row-->
+		</div><!--/container-->
+		<!-- /Main -->
+
+		@tags.footer()
+	</body>
+</html>

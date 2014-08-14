@@ -1,0 +1,28 @@
+@(warehouses: Seq[WarehouseData])(implicit flash: Flash, lang: Lang)
+
+@products.productsLayout(Messages("warehouse.landing.page")) {
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>@Messages("warehouse.code")</th>
+						<th>@Messages("warehouse.name")</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(warehouse <- warehouses) {
+						<tr id="warehouseRow-@warehouse.code">
+							<td>
+								<a href="@controllers.routes.Warehouses.show(warehouse.code)">
+									@warehouse.code
+								</a>
+							</td>
+							<td>@warehouse.name</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div><!--/row-->
+}

@@ -1,0 +1,34 @@
+GET        /                                                @controllers.Application.index
+GET        /dashboard                                       @controllers.Application.dashboard
+# POST     /                                                @controllers
+# PUT      /                                                @controllers
+# DELETE   /                                                @controllers
+# TRACE    /                                                @controllers
+# CONNECT  /                                                @controllers
+
+GET        /products                                        @controllers.Products.list
+POST       /products                                        @controllers.Products.save
+GET        /products/new                                    @controllers.Products.newProduct
+GET        /products/$ean<\d{13}>                           @controllers.Products.show(ean: Long)
+GET        /products/$ean<\d{13}>/edit                      @controllers.Products.edit(ean: Long)
+POST       /products/$ean<\d{13}>/delete                    @controllers.Products.delete(ean: Long)
+
+GET        /barcode/$ean<\d{13}>                            @controllers.Barcodes.barcode(ean: Long)
+
+GET        /warehouses                                      @controllers.Warehouses.list
+POST       /warehouses                                      @controllers.Warehouses.save
+GET        /warehouses/new                                  @controllers.Warehouses.newWarehouse
+GET        /warehouses/:code                                @controllers.Warehouses.show(code: String)
+GET        /warehouses/:code/edit                           @controllers.Warehouses.edit(code: String)
+POST       /warehouses/:code/delete                         @controllers.Warehouses.delete(code: String)
+
+
+GET        /stockitems                                      @controllers.StockItems.list
+POST       /stockitems                                      @controllers.StockItems.save
+GET        /stockitems/new                                  @controllers.StockItems.newStockItem
+GET        /stockitems/$ean<\d{13}>/warehouse/:code         @controllers.StockItems.show(ean: Long, code: String)
+GET        /stockitems/$ean<\d{13}>/warehouse/:code/edit    @controllers.StockItems.edit(ean: Long, code: String)
+POST       /stockitems/$ean<\d{13}>/warehouse/:code/delete  @controllers.StockItems.delete(ean: Long, code: String)
+
+GET        /assets/*file                                    controllers.Assets.at(path="/public", file)
+

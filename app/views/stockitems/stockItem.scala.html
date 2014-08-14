@@ -1,0 +1,38 @@
+@(stockItem: StockItemData)(implicit flash: Flash, lang: Lang)
+
+@products.productsLayout(Messages("stockitem.details")) {
+	<h4>
+		@Messages("stockitem.details")
+	</h4>
+	<hr>
+	<dl id="stockItemDetail-@stockItem.ean-@stockItem.warehouseCode" class="dl-horizontal">
+		<dt>@Messages("stockitem.ean"):</dt>
+		<dd>
+			<a href="@controllers.routes.Products.show(stockItem.ean)">
+				@stockItem.ean
+			</a>
+		</dd>
+
+		<dt>@Messages("stockitem.code"):</dt>
+		<dd>
+			<a href="@controllers.routes.Warehouses.show(stockItem.warehouseCode)">
+				@stockItem.warehouseCode
+			</a>
+		</dd>
+		
+		<dt>@Messages("stockitem.quantity"):</dt>
+		<dd>@stockItem.quantity</dd>
+
+	</dl>
+	<hr>
+	<div class="btn-group btn-group-justified">
+		<a href="@routes.StockItems.edit(stockItem.ean, stockItem.warehouseCode)" class="btn btn-info col-sm-3" disabled="disabled">
+			<i class="glyphicon glyphicon-save"></i><br> Update
+		</a>
+		<a href="@routes.StockItems.delete(stockItem.ean, stockItem.warehouseCode)" class="btn btn-info col-sm-3" disabled="disabled">
+			<i class="glyphicon glyphicon-trash"></i><br> Delete
+		</a>
+	</div>
+	
+
+}

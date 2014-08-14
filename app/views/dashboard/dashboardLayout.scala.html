@@ -1,0 +1,17 @@
+@(title: String)(content: Html)(implicit flash: Flash, lang: Lang)
+<!DOCTYPE html>
+<html>
+	<head>
+		@tags.header(title)
+	</head>
+	<body>
+		@topnav()
+		<!-- Main -->
+		<div class="container">
+			@content
+		</div><!--/container-->
+		<!-- /Main -->
+
+		@tags.footer()
+	</body>
+</html>

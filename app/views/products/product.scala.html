@@ -1,0 +1,34 @@
+@(product: ProductData)(implicit flash: Flash, lang: Lang)
+
+@productsLayout(Messages("products.details", product.name)) {
+	<h4>
+		@Messages("products.details", product.name)
+	</h4>
+	<hr>
+	<dl id="productDetail-@product.ean" class="dl-horizontal">
+		<dt>@Messages("ean"):</dt>
+		<dd>@product.ean</dd>
+
+		<dt>@Messages("name"):</dt>
+		<dd>@product.name</dd>
+
+		<dt>@Messages("description"):</dt>
+		<dd>@product.description</dd>
+	</dl>
+	<hr>
+	<div class="panel panel-default">
+		<div class="panel-body">
+		@tags.barcode(product.ean)
+		</div>
+	</div>
+	<div class="btn-group btn-group-justified">
+		<a href="@routes.Products.edit(product.ean)" class="btn btn-info col-sm-3">
+			<i class="glyphicon glyphicon-save"></i><br> Update
+		</a>
+		<a href="@routes.Products.delete(product.ean)" class="btn btn-info col-sm-3" disabled="disabled">
+			<i class="glyphicon glyphicon-trash"></i><br> Delete
+		</a>
+	</div>
+	
+
+}

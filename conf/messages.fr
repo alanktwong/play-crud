@@ -1,0 +1,29 @@
+application.name = Catalogue des produits
+
+product.ean = EAN
+product.name = Nom
+description = Descriptif
+
+products.details = Produit: {0}
+products.form = Details produit
+products.new = (nouveau)
+products.new.command = Ajouter
+products.new.submit = Ajouter
+products.new.success = Produit {0} ajouté.
+
+products.edit = (édit)
+products.edit.command = Editer
+products.edit.submit = Réviser
+products.edit.success = Produit {0} correctement mis à jour.
+
+warehouse.details = Entrepôt: {0}
+warehouse.code = Code
+warehouse.name = Nom
+
+stockitem.details = Produit en stock
+stockitem.code = Code Entrepôt
+stockitem.ean = EAN
+stockitem.quantity = Quantité
+
+validation.errors = Veuillez corriger les erreurs sur le formulaire
+validation.ean.duplicate = Un produit avec cette code EAN existe déja

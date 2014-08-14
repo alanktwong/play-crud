@@ -1,0 +1,37 @@
+@(stockItems: Seq[StockItemData])(implicit flash: Flash, lang: Lang)
+
+@products.productsLayout(Messages("stockitem.landing.page")) {
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<thead>
+					<tr><th>@Messages("stockitem.ean")</th>
+						<th>@Messages("stockitem.code")</th>
+						<th>@Messages("stockitem.quantity")</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(stockItem <- stockItems) {
+						<tr id="stockItemRow-@stockItem.ean-@stockItem.warehouseCode">
+							<td>
+								<a href="@controllers.routes.Products.show(stockItem.ean)">
+									@stockItem.ean
+								</a>
+							</td>
+							<td>
+								<a href="@controllers.routes.Warehouses.show(stockItem.warehouseCode)">
+									@stockItem.warehouseCode
+								</a>
+							</td>
+							<td>
+								<a href="@controllers.routes.StockItems.show(stockItem.ean, stockItem.warehouseCode)">
+									@stockItem.quantity
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div><!--/row-->
+}

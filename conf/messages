@@ -1,0 +1,32 @@
+application.name = Play Eventsourced
+
+product.ean = EAN
+product.name = Name
+product.description = Description
+
+products.details = Product: {0}
+products.form = Product details
+products.new = (new)
+products.new.command = New
+products.new.submit = Add
+products.new.success = Successfully added product {0}.
+
+product.landing.page = Product Landing Page
+products.edit = (edit)
+products.edit.command = Edit
+products.edit.submit = Update
+products.edit.success = Successfully updated product {0}.
+
+warehouse.landing.page = Warehouse Landing Page
+warehouse.details = Warehouse: {0}
+warehouse.code = Code
+warehouse.name = Name
+
+stockitem.landing.page = Stock Item Landing Page
+stockitem.details = Stock Item
+stockitem.code = Warehouse Code
+stockitem.ean = EAN
+stockitem.quantity = Quantity
+
+validation.errors = Please correct the errors in the form.
+validation.ean.duplicate = A product with this EAN code already exists

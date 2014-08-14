@@ -1,0 +1,29 @@
+@(products: Seq[ProductData])(implicit flash: Flash, lang: Lang)
+
+@productsLayout(Messages("product.landing.page")) {
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<thead>
+					<tr><th>@Messages("product.name")</th>
+						<th>@Messages("product.ean")</th>
+						<th>@Messages("product.description")</th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(product <- products) {
+						<tr id="productRow-@product.ean">
+							<td>
+								<a href="@controllers.routes.Products.show(product.ean)">
+									@product.name
+								</a>
+							</td>
+							<td>@product.ean</td>
+							<td>@product.description</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div><!--/row-->
+}
