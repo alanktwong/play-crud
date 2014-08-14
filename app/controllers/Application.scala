@@ -9,10 +9,7 @@ class Application extends BaseController {
 		Redirect(routes.Products.list())
 	}
 
-	
-	
 	def dashboard =  Action { implicit request =>
 		Ok(views.html.dashboard.dashboardHome())
 	}
-	
 }

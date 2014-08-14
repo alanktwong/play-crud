@@ -10,9 +10,4 @@ package object controllers {
 	 *	Denotes that the type should be filled in.
 	 */
 	type *** = Any
-	
-	
-	trait BaseController extends play.api.mvc.Controller with misc.Logging {
-	
-	}
 }
