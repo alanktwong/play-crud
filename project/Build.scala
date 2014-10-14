@@ -3,11 +3,8 @@ import Keys._
 import play.Project._
 
 object Resolvers {
-  lazy val nexusSnapshots        = "Sonatype Nexus Repository Manager Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
   lazy val sprayIoReleases       = "Spray IO Release Repo" at "http://repo.spray.io"
-  lazy val typesafeReleases      = "Typesafe Releases Repository"  at "http://repo.typesafe.com/typesafe/releases/"
-  lazy val typesafeSnapshots     = "Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/"
-  lazy val typesafeResolvers     = Seq(typesafeReleases, typesafeSnapshots, sprayIoReleases, nexusSnapshots)
+  lazy val typesafeResolvers     = Seq(sprayIoReleases) ++ Seq("snapshots", "releases").map(Resolver.typesafeRepo) ++Seq("snapshots", "releases").map(Resolver.sonatypeRepo)
 
   lazy val sunRepo               = "Sun Maven2 Repo"               at "http://download.java.net/maven/2"
   lazy val glassfishRepo         = "Sun GF Maven2 Repo"            at "http://download.java.net/maven/glassfish"
